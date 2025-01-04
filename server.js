@@ -1,12 +1,11 @@
-require('dotenv').config();
-const express     = require('express');
-const bodyParser  = require('body-parser');
-const expect      = require('chai').expect;
-const cors        = require('cors');
-
-const fccTestingRoutes  = require('./routes/fcctesting.js');
-const apiRoutes         = require('./routes/api.js');
-const runner            = require('./test-runner');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv'; 
+dotenv.config();
+import apiRoutes from './routes/api.js';
+import fccTestingRoutes from './routes/fcctesting.js';
+import emitter from './test-runner.js';
 
 const app = express();
 
@@ -44,7 +43,7 @@ app.listen(PORT, function () {
     console.log('Running Tests...');
     setTimeout(function () {
       try {
-        runner.run();
+        emitter.run();
       } catch (error) {
         console.log('Tests are not valid:');
         console.error(error);
@@ -53,4 +52,4 @@ app.listen(PORT, function () {
   }
 });
 
-module.exports = app; // for testing
+export default app;// for testing
